@@ -1,0 +1,54 @@
+import java.util.Random;
+import java.util.Scanner;
+
+/**
+ * Starter code for the "Guess My Number" exercise.
+ * it tells the user whether the guess is too high or too low, and then
+prompts the user for another guess.
+The program should continue until the user gets it right. Hint: Use two
+methods, and make one of them recursive.
+ */
+public class GuessStarter {
+
+    public static void main(String[] args) {
+        System.out.println("I'm thinking of a number between 1 and 100 (including both). Can you guess what it is?");
+        int number = randomGuess();
+        recursiveGuess(number);
+        System.out.println ("The number I was thinking of is: " + number);
+    }
+    
+    public static void intervalGuess(int number, int insert){
+        if (number == insert){
+            System.out.println ("You guessed right!");
+        } else if (insert < number) {
+                System.out.println ("You guess is too low! Please try again :)");
+        }else if (insert > number) {
+            System.out.println ("You guess is too high! Please try again :)");
+        } 
+    }
+    
+    public static int guessedNumber(){
+        Scanner in = new Scanner(System.in);
+        System.out.print ("Type a number: ");
+        int insert = in.nextInt();
+        System.out.printf ("Your guess is: %d\n", insert);
+        in.close();
+        return insert;
+    }
+    
+    public static int randomGuess(){
+        Random random = new Random();
+        int number = random.nextInt(100) + 1;
+        return number;
+    
+    }
+    
+    public static void recursiveGuess(int number){
+                int insert = guessedNumber();
+                intervalGuess(number, insert);
+                if (number!=insert){
+                    recursiveGuess(number);
+                }
+    }
+
+}
