@@ -1,0 +1,191 @@
+import java.util.Arrays;
+import java.util.Random;
+
+public class ArraysPractice{
+    public static void main (String[] args){
+        
+        double [] a = randomArray(30);    
+        //System.out.println(Arrays.toString(a));
+        //System.out.println();
+        double[] newA = powArray(a, 3);
+        //System.out.println(Arrays.toString(newA));
+        
+        int[] scores = randomArrayInt(10);
+       //System.out.println(Arrays.toString(scores));
+      // System.out.println();
+      // System.out.println("Maximalaus skaiciaus indeksas: " + (indexOfMax(scores)));
+        int[] counts = histogram (scores, 100);
+       // System.out.println(Arrays.toString(counts));
+        
+         //System.out.println ( Arrays.toString(sieve(100)));
+        int [] fact = {3,2,11,13,19,23, 9};
+        //System.out.println(areFactors(3, fact));
+        System.out.println(arePrimeFactors(3, fact));
+        
+    
+    }
+
+    /*write a method called powArray that takes 
+     * a double array, a, and returns a new array 
+     * that contains the elements of a squared. 
+     * Generalize it to take a second argument and raise 
+     * the elements of a to the given power.*/
+    
+    public static double[] powArray(double[] a, int n){
+        double[] newA = new double[a.length];
+        for( int i = 0; i < a.length; i++){
+            double temp = a[i];
+            newA[i] = power(temp, n);
+        }
+        
+        return newA;
+    
+    }
+    
+        public static double power(double x, int n){
+        if (n == 0){
+            return 1;
+        } 
+        else {
+            return (x * ( power(x, (n-1))));
+        }
+    }
+        
+        public static double[] randomArray(int size) {
+            Random random = new Random();
+            double[] a = new double[size];
+            for (int i = 0; i < a.length; i++) {
+                a[i] = random.nextDouble();
+            }
+        return a;
+    }
+     
+        public static int[] randomArrayInt(int size) {
+            Random random = new Random();
+            int[] a = new int[size];
+            for (int i = 0; i < a.length; i++) {
+                a[i] = random.nextInt(100);
+            }
+        return a;
+    }
+        
+ /* write a method called histogram that takes an int array of scores 
+  * from 0 to (but not including) 100, and returns a histogram of 100 
+  * counters. Generalize it to take the number of counters as an argument.   */    
+        
+        public static int[] histogram (int[] scores, int n){
+        
+        int[] counts = new int[n];
+    for (int score : scores) {
+        counts[score]++;   
+    }
+    return counts;
+ } 
+
+/*Write a method called indexOfMax that takes an array of
+integers and returns the index of the largest element.        */
+        
+        public static int indexOfMax (int[] a) {
+            int tempMax = 0;
+            int maxIndex =0;
+            int i = 0;
+            while (i < a.length) {
+                if (a[i] >= tempMax) {    
+                tempMax = a[i];
+                maxIndex =i;
+                i++;
+                } else {i++; } 
+            } 
+            return maxIndex;
+        }
+        
+/*Write a method called sieve that takes an integer parameter, n, and returns
+a boolean array that indicates, for each number from 0 to n - 1, whether the
+number is prime.*/
+        
+        public static boolean[] sieve (int n){
+            int[] intArray = new int[n-1];
+            for (int i =0; i< intArray.length; i++){
+                intArray[i] = i+2;
+            }
+        
+            boolean[] booArray = new boolean[n-1];
+            for (int j =0; j< booArray.length; j++){
+                if ((intArray[j] ==2)||(intArray[j] ==3)||(intArray[j] ==5)||(intArray[j] ==7)){
+                    booArray[j] = true;
+                } else if (intArray[j] % 2 ==0 ) {
+                    booArray[j] = false;
+                } else if (intArray[j] % 3 ==0 ) {
+                    booArray[j] = false;
+                }else if (intArray[j] % 5 ==0 ) {
+                    booArray[j] = false;
+                }else if (intArray[j] % 7 ==0 ) {
+                    booArray[j] = false;
+                } else {
+                    booArray[j] = true;
+                }
+            }
+             return booArray;   
+            }
+        
+/*Write a method named areFactors that takes an integer n
+and an array of integers, and that returns true if the numbers in the array
+are all factors of n (which is to say that n is divisible by all of them).*/
+
+        public static boolean areFactors (int n, int[] a){
+            boolean flag = false;
+            for (int i =0; i < a.length; i++) {
+                if (a[i] % n == 0) {
+                flag =true;
+                } else {
+                flag = false;} 
+            } return flag;
+        }
+/* Write a method named arePrimeFactors that takes an integer
+n and an array of integers, and that returns true if the numbers in the array
+are all prime and their product is n.
+ */
+        public static boolean arePrimeFactors(int n, int[] a){
+        boolean flag = false;
+         for (int i =0; i < a.length; i++) {
+             if ((a[i] == 2) && (a[i] %n == 0))  { flag = true; }
+             else if ((a[i] == 3)&& (a[i] %n == 0)) { flag = true; }
+             else if ((a[i] == 5)&& (a[i] %n == 0)) { flag = true; }
+             else if ((a[i] == 7)&& (a[i] %n == 0)) { flag = true; }
+             else if ((a[i]%2 != 0)&&(a[i]%3 != 0)&&(a[i] %5 != 0)&&(a[i] %7 != 0)&& (a[i] %n == 0)) { flag = true;}
+             else {flag = false;}
+         }
+        
+        return flag;
+        }
+/*Write a method called maxInRange that takes an array of integers and
+two indexes, lowIndex and highIndex, and  finds the maximum value
+in the array, but only considering the elements between lowIndex and
+highIndex, including both*/
+
+        public static int maxInRange(int[] a, int lowIndex, int highIndex){
+            int maximum;
+            int maximum2;
+            if (lowIndex == highIndex) {
+                return maximum = a[lowIndex];
+            } else {
+                int middleIndex =((highIndex -lowIndex)/2);
+                if ( middleIndex > lowIndex){
+                    maximum = a[lowIndex];
+                    if(a[lowIndex] <= a[lowIndex+1]) {
+                        maximum = a[lowIndex+1];
+                        lowIndex = lowIndex+1;
+                        maxInRange(a, lowIndex, middleIndex);
+                    } return maximum;
+                }else if( middleIndex <=highIndex){
+                    maximum2 = a[middleIndex];
+                    if(a[middleIndex] <= a[middleIndex+1]) {
+                        maximum2 = a[middleIndex+1];
+                        middleIndex = middleIndex+1;
+                        maxInRange(a, middleIndex, highIndex);
+                    } return maximum2;
+                }
+            } return 0;
+        }
+}
+
