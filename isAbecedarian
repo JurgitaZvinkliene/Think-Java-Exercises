@@ -1,0 +1,31 @@
+
+
+public class Abecedarian {
+
+ public static boolean isAbecedarian (String s){
+  int i = 0;
+  int j = 1;
+  while (j < s.length()){
+   if (s.charAt(i) <= s.charAt(j)){
+    i++;
+    j++;
+   }
+   else{
+    return false;
+   }
+   
+  }
+  return true;
+ }
+ 
+ public static void main(String[] args){
+  String arg = "abca";
+  
+  if (isAbecedarian(arg) == true){
+  System.out.println("is Abecedarian");
+  }
+  else {
+   System.out.println("is not Abecedarian");
+  }
+ }
+}
